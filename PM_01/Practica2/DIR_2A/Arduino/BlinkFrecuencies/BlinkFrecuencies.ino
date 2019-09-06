@@ -15,58 +15,80 @@ int led4 = 10;
 // the setup routine runs once when you press reset:
 void setup() {                
   // initialize the digital pin as an output.
+  DDRB =  DDRB | B11111111;
   pinMode(led, OUTPUT);
-  pinMode(led2, OUTPUT);
-  pinMode(led3, OUTPUT);
-  pinMode(led4, OUTPUT);
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, HIGH);
-  digitalWrite(led3, HIGH);
-  digitalWrite(led4, HIGH);
-  delay(250);             
-  digitalWrite(led, LOW);    
-  delay(250);
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, LOW);
-  delay(250);
-  digitalWrite(led, LOW);
-  delay(250);
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, HIGH);
-  digitalWrite(led3, LOW);
-  delay(250);
-  digitalWrite(led, LOW);
-  delay(250);
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, LOW);
-  delay(250);
-  digitalWrite(led, LOW);
-  delay(250);
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, HIGH);
-  digitalWrite(led3, HIGH);
-  digitalWrite(led4, LOW);
-  delay(250);
-  digitalWrite(led, LOW);    
-  delay(250);
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, LOW);
-  delay(250);
-  digitalWrite(led, LOW);
-  delay(250);
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, HIGH);
-  digitalWrite(led3, LOW);
-  delay(250);
-  digitalWrite(led, LOW);
-  delay(250);
-  digitalWrite(led, HIGH);
-  digitalWrite(led2, LOW);
-  delay(250);
-  digitalWrite(led, LOW);
-  delay(250);
+    
+  asm volatile(
+    "inicio: \n\t" 
+    "sbi 0x05,0x04 \n\t"
+    "sbi 0x05,0x05 \n\t"
+    "sbi 0x05,0x06 \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "cbi 0x05,0x06 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "sbi 0x05,0x06 \n\t"
+    "cbi 0x05,0x05 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "cbi 0x05,0x06 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "sbi 0x05,0x06 \n\t"
+    "sbi 0x05,0x05 \n\t"
+    "cbi 0x05,0x04 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "cbi 0x05,0x06 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "sbi 0x05,0x06 \n\t"
+    "cbi 0x05,0x05 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "sbi 0x05,0x07 \n\t"
+    "cbi 0x05,0x06 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "call tiempo \n\t"
+    "cbi 0x05,0x07 \n\t"
+    "jmp main \n\t"
+    
+    "tiempo: \n\t"
+    "LDI r22, 20 \n\t"
+    "LOOP_3: \n\t"
+    "LDI r21, 253 \n\t"
+    "LOOP_2: \n\t"
+    "LDI r20, 255 \n\t"
+    "LOOP_1: \n\t"
+    "DEC r20 \n\t"
+    "BRNE LOOP_1 \n\t"
+    "DEC r21 \n\t"
+    "BRNE LOOP_2 \n\t"
+    "DEC r22 \n\t"
+    "BRNE LOOP_3 \n\t"
+    "ret \n\t"
+  );
+  
 }
+
+
