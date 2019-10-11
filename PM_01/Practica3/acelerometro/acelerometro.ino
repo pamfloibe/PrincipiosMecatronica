@@ -1,16 +1,21 @@
-int val = 0;
+#include <Wire.h>
+
+int estado[] = {0,0,0};
 
 int xpin = A1;                  
 int ypin = A2;                  
-int zpin = A3;                
- 
-int t_muestreo = 500;   // Tiempo de muestreo del acelerómetro
+int zpin = A3;
+
+float x = 0;
+float y = 0;
+float z = 0;
+  
+//int t_muestreo = 100;
 void setup()
 {
  Serial.begin(9600);
-  analogReference(EXTERNAL);  // La tensión aplicada en el pin AREF (3.3V) será la que haga que el conversor analogo-digital
-                              // de su máxima lectura (1023) 
-    
+  analogReference(EXTERNAL);  
+  
   pinMode(xpin, INPUT);
   pinMode(ypin, INPUT);
   pinMode(zpin, INPUT);
@@ -18,29 +23,28 @@ void setup()
 
 void loop()
 {
- int x = analogRead(xpin); // Leemos el valor de la tensión en el pin x
+ Wire.beginTransmission(1);
+ estado[0] = analogRead(xpin); 
  
-    delay(1); // Esperamos 1 ms a leer en el próximo pin
+    delay(1);
  
-  int y = analogRead(ypin); // Leemos el valor de la tensión en el pin y
+ estado[1] = analogRead(ypin); 
  
-    delay(1); // Esperamos 1 ms a leer en el próximo pin
+    delay(1);
  
-  int z = analogRead(zpin);
+ estado[2] = analogRead(zpin);
  
-  float zero_G = 512.0;
+//estado = {digitalRead(inPin1), digitalRead(inPin2)};  // read input value
+  Wire.write(estado[0]);
+  Wire.endTransmission();
  
-  float escala = 102.3;
- 
-  Serial.print(((float)x - zero_G)/escala);
+  Serial.print(estado[0]);
   Serial.print("\t");
  
-  Serial.print(((float)y - zero_G)/escala);
+  Serial.print(estado[1]);
   Serial.print("\t");
+  
+  Serial.println(estado[2]);
  
-  Serial.print(((float)z - zero_G)/escala);
-  Serial.print("\n");
- 
-  // delay entre cada lectura
-  delay(t_muestreo);
+  //delay(t_muestreo);
 }
