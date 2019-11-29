@@ -1,0 +1,2 @@
+proyCarro
+-DCATKIN_DEVEL_PREFIX=/home/robotica/Desktop/PrincipiosMecatronica/PM_01/proyecto/ws/devel -DCMAKE_INSTALL_PREFIX=/home/robotica/Desktop/PrincipiosMecatronica/PM_01/proyecto/ws/install -G Unix Makefiles
