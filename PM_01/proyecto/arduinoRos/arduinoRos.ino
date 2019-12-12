@@ -2,10 +2,10 @@
 int esq = 0;
 
 // Delay (distancia)
-int delayD = 2500;
+int delayD = 2400;
 
 // Delay giro
-int delayG = 195;
+int delayG = 280;
 
 // Motor A
 int ENA = 9;
@@ -38,10 +38,11 @@ void loop()
     Adelante(); //recta1
     delay(delayD);
     Alto();
-    delay(500);
+    delay(200);
     Derecha();
     delay(delayG);
     Alto();
+    delay(200);
     esq++;
   }
    esq = 0;
@@ -49,7 +50,7 @@ void loop()
 
   delay(1500);
   Circulo();
-  delay(6750);
+  delay(7100);
   Alto();
   
 }
@@ -59,11 +60,11 @@ void Derecha ()
  //Direccion motor A
  digitalWrite (IN2, LOW);
  digitalWrite (IN1, HIGH);
- analogWrite (ENA, vel); //Velocidad motor A
+ analogWrite (ENA, vel-10); //Velocidad motor A
  //Direccion motor B
  digitalWrite (IN4, LOW);
  digitalWrite (IN3, HIGH);
- analogWrite (ENB, vel); //Velocidad motor B
+ analogWrite (ENB, vel-10); //Velocidad motor B
 }
 
 void Circulo ()
@@ -75,7 +76,7 @@ void Circulo ()
  //Direccion motor B
  digitalWrite (IN3, LOW);
  digitalWrite (IN4, HIGH);
- analogWrite (ENB, vel - 50); //Velocidad motor A
+ analogWrite (ENB, vel - 40); //Velocidad motor A
 }
 
 void Adelante ()
@@ -87,7 +88,7 @@ void Adelante ()
  //Direccion motor B
  digitalWrite (IN3, LOW);
  digitalWrite (IN4, HIGH);
- analogWrite (ENB, vel+5); //Velocidad motor A
+ analogWrite (ENB, vel+20); //Velocidad motor A
 } 
 
 
